@@ -98,6 +98,6 @@ supported-by: []
 
 ## 4. Required Remediation
 
-- [ ] CRITICAL Replace the hardcoded JWT secret key with an exception.
-- [ ] HIGH Configure a global rate limiter to restrict request volumes.
-- [ ] MEDIUM Inject configuration values into the test application factory.
+- [x] CRITICAL Replace the hardcoded JWT secret key with an exception.
+- [x] HIGH Configure a global rate limiter to restrict request volumes.
+- [x] MEDIUM Inject configuration values into the test application factory.

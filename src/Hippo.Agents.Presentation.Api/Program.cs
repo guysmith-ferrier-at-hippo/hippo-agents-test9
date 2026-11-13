@@ -1,15 +1,18 @@
 using System.Text;
+using System.Threading.RateLimiting;
 using Hippo.Agents.Presentation.Api.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddProblemDetails();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         var jwtSettings = builder.Configuration.GetSection("Jwt");
-        var secretKey = jwtSettings["SecretKey"] ?? "hippo-agents-dev-jwt-super-secret-key-at-least-32-chars-long!";
+        var secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT secret key is missing.");
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
         options.TokenValidationParameters = new TokenValidationParameters
@@ -29,6 +32,13 @@ builder.Services.AddAuthorization();
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(_ =>
+        RateLimitPartition.GetFixedWindowLimiter("global", _ =>
+            new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 100,
+                Window = TimeSpan.FromMinutes(1)
+            }));
 });
 
 var app = builder.Build();

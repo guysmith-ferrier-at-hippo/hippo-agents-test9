@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Xunit;
 
@@ -21,7 +22,18 @@ public class HelloWorldEndpointTests : IClassFixture<WebApplicationFactory<Progr
 
     public HelloWorldEndpointTests(WebApplicationFactory<Program> factory)
     {
-        _factory = factory;
+        _factory = factory.WithWebHostBuilder(builder =>
+        {
+            builder.ConfigureAppConfiguration((context, config) =>
+            {
+                config.AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "Jwt:SecretKey", SecretKey },
+                    { "Jwt:Issuer", Issuer },
+                    { "Jwt:Audience", Audience }
+                });
+            });
+        });
     }
 
     private static string GenerateJwtToken(string username = "testuser", int expireMinutes = 60)
@@ -129,5 +141,54 @@ public class HelloWorldEndpointTests : IClassFixture<WebApplicationFactory<Progr
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.MethodNotAllowed);
+    }
+
+    [Fact]
+    public async Task GetHelloWorld_WhenRateLimitExceeded_Returns429TooManyRequests()
+    {
+        // Arrange
+        using var isolatedFactory = _factory.WithWebHostBuilder(_ => { });
+        var client = isolatedFactory.CreateClient();
+        var token = GenerateJwtToken();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        // Exhaust the 100 permit limit
+        for (var i = 0; i < 100; i++)
+        {
+            var allowedResponse = await client.GetAsync("/api/v1/hello-world");
+            allowedResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        // Act
+        var rateLimitedResponse = await client.GetAsync("/api/v1/hello-world");
+
+        // Assert
+        rateLimitedResponse.StatusCode.Should().Be(HttpStatusCode.TooManyRequests);
+    }
+
+    [Fact]
+    public async Task GetHelloWorld_WithoutJwtSecretKey_Returns500InternalServerError()
+    {
+        // Arrange
+        using var customFactory = _factory.WithWebHostBuilder(builder =>
+        {
+            builder.ConfigureAppConfiguration((_, config) =>
+            {
+                config.AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "Jwt:SecretKey", null }
+                });
+            });
+        });
+
+        var client = customFactory.CreateClient();
+
+        // Act
+        var response = await client.GetAsync("/api/v1/hello-world");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        var content = await response.Content.ReadAsStringAsync();
+        content.Should().Contain("JWT secret key is missing.");
     }
 }

@@ -91,6 +91,7 @@ tests/
 - **Observability**: Structured logging with Serilog, OpenTelemetry tracing, and OpenTelemetry metrics.
 - **Health Checks**: Standard ASP.NET Core health check endpoints (`/health/ready`, `/health/live`).
 - **Error Handling**: Global exception handling middleware that maps exceptions into standard RFC 7807 Problem Details payloads.
+- **Rate Limiting**: Global rate limiter middleware restricts request volumes and returns HTTP 429 status.
 
 ## ADRs
 
