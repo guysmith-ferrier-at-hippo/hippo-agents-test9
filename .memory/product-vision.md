@@ -107,3 +107,15 @@ Delivery teams build autonomous agent capabilities without standard architectura
 - [GDS Design System](https://design-system.service.gov.uk)
 - [Microsoft .NET 9 Documentation](https://learn.microsoft.com/en-us/dotnet/)
 - [ASD-STE100 Simplified Technical English Standard](https://asd-ste100.org/)
+
+## 13. Value Rule Set
+
+- **Primary Value Driver(s)**: Fast delivery velocity, system reliability, and standardized execution.
+- **Strategic Goals Alignment**: Ensures that the platform provides testable, reliable building blocks for delivery teams.
+
+| Rule / Criterion | Description | Minimum Threshold for Go |
+|------------------|-------------|--------------------------|
+| Delivery Velocity | Improves developer onboarding and API testability. | High |
+| System Reliability | Does not degrade system performance or error rates. | Zero degradation |
+| Standardization | Adheres to platform API and architectural standards. | 100% compliance |
+

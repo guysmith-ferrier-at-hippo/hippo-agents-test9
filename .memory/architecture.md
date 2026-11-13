@@ -107,6 +107,7 @@ tests/
 - [ASSUME-0001](assumptions/ASSUME-0001-cloud-container-hosting.md): Managed cloud container hosting environment (unresolved)
 - [ASSUME-0002](assumptions/ASSUME-0002-desktop-browser-primary-device.md): Desktop and tablet browsers as primary user interface devices (unresolved)
 - [ASSUME-0003](assumptions/ASSUME-0003-ci-docker-testcontainers.md): Docker daemon availability in CI runners for Testcontainers (unresolved)
+- [ASSUME-0005](assumptions/ASSUME-0005-hello-world-value.md): Hello-world endpoint provides baseline connectivity value (unresolved)
 <!-- assumption-list:end -->
 
 The save_adr and save_assumption tools fill these lists. Do not edit between the markers.
