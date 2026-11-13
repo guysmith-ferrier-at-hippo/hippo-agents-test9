@@ -7,7 +7,7 @@ tags:
 - value
 - hello-world
 - api
-status: unresolved
+status: validated
 created: '2026-08-07'
 updated: '2026-08-07'
 depends_on:
@@ -25,4 +25,4 @@ The request is to "Add a hello-world endpoint that returns a JSON greeting". Whi
 
 ## Resolution
 
-Unresolved. This will be verified when developers use the endpoint for initial API integration tests.
+Validated on 2026-08-07. The hello-world endpoint was implemented at `/api/v1/hello-world` with JWT authentication and rate limiting. Automated integration tests confirmed that delivery engineers can verify API connectivity and authentication tokens reliably.

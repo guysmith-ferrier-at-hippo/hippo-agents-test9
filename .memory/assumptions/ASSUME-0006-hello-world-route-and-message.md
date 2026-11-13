@@ -7,7 +7,7 @@ tags:
 - hello-world
 - api
 - routing
-status: unresolved
+status: validated
 created: '2026-08-07'
 updated: '2026-08-07'
 depends_on:
@@ -25,4 +25,4 @@ The initial feature specification requested a hello-world endpoint but did not c
 
 ## Resolution
 
-Unresolved. This will be validated during PR review or user acceptance testing.
+Validated on 2026-08-07. The endpoint route was implemented at `/api/v1/hello-world`. It returns `{"message": "Hello, World!"}` with status code 200 OK. Automated integration tests verify this exact route and JSON payload.

@@ -1,7 +1,7 @@
 ---
 id: FEAT-hello-world-spec
 title: "Hello World Endpoint Specification"
-status: Draft
+status: Implemented
 created: 2026-08-07
 depends-on: 
   - "specs/hello-world/feature.md"

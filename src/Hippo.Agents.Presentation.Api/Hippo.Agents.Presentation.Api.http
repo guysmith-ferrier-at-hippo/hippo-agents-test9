@@ -1,0 +1,8 @@
+@Hippo.Agents.Presentation.Api_HostAddress = http://localhost:5297
+@authToken = your-jwt-token-here
+
+GET {{Hippo.Agents.Presentation.Api_HostAddress}}/api/v1/hello-world
+Accept: application/json
+Authorization: Bearer {{authToken}}
+
+###

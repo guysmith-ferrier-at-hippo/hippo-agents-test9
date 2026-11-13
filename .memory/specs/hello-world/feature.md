@@ -1,7 +1,7 @@
 ---
 id: FEAT-hello-world
 title: "Hello World Endpoint"
-status: Draft
+status: Implemented
 req: "Add a hello-world endpoint that returns a JSON greeting"
 created: 2026-08-07
 depends-on: 
@@ -51,6 +51,6 @@ The primary objective is to verify that the endpoint responds correctly to HTTP 
 
 | Question | Clarification |
 | :--- | :--- |
-| **[CLARIFICATION NEEDED]** Does this endpoint require standard JWT authentication, or is it an open endpoint? | *Awaiting user response* |
-| **[CLARIFICATION NEEDED]** What exact text must the JSON greeting contain? | *Awaiting user response* |
-| **[CLARIFICATION NEEDED]** What is the exact URL route for this endpoint (for example, `/api/v1/hello`)? | *Awaiting user response* |
+| Does this endpoint require standard JWT authentication, or is it an open endpoint? | Standard JWT bearer authentication is required. |
+| What exact text must the JSON greeting contain? | The endpoint returns `{"message": "Hello, World!"}`. |
+| What is the exact URL route for this endpoint (for example, `/api/v1/hello`)? | The route is `/api/v1/hello-world`. |

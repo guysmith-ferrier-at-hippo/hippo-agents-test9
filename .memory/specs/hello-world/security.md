@@ -27,9 +27,9 @@
 
 ## 6. Required Remediation
 ### A. Architecture / B. Requirements / C. Anti-Patterns
-* [ ] **Enforce Authentication:** Configure the endpoint to require authorization policies. (*Rationale:* Zero Trust)
-* [ ] **Apply Rate Limiting:** Ensure the global rate limiter applies to this route. (*Rationale:* Secure by Design, Availability)
+* [x] **Enforce Authentication:** Configure the endpoint to require authorization policies. (*Rationale:* Zero Trust)
+* [x] **Apply Rate Limiting:** Ensure the global rate limiter applies to this route. (*Rationale:* Secure by Design, Availability)
 
 ## 7. Remediation Tasks
-- [ ] [Security] [Global] Enforce JWT authentication on the hello-world endpoint.
-- [ ] [Security] [Global] Apply default API rate limits to prevent volumetric abuse.
+- [x] [Security] [Global] Enforce JWT authentication on the hello-world endpoint.
+- [x] [Security] [Global] Apply default API rate limits to prevent volumetric abuse.
